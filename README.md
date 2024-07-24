@@ -47,7 +47,7 @@ sudo apt-get install jenkins
 
     Open Jenkins in your browser:
 
-    vbnet
+   
 
 http://<ec2-instance-public-ip>:8080
 
@@ -56,7 +56,7 @@ Unlock Jenkins:
     Locate the initial admin password at /var/lib/jenkins/secrets/initialAdminPassword.
     View the password:
 
-    sh
+    
 
         sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
@@ -76,19 +76,19 @@ Unlock Jenkins:
 
 Update the package list:
 
-    sh
+   
 
 sudo apt update
 
 Install Docker:
 
-sh
+
 
 sudo apt install docker.io
 
 Grant Jenkins and Ubuntu users permission to the Docker daemon:
 
-sh
+
 
 sudo su -
 usermod -aG docker jenkins
@@ -97,12 +97,12 @@ systemctl restart docker
 
 Restart Jenkins:
 
-vbnet
+
 
     http://<ec2-instance-public-ip>:8080/restart
 
 Conclusion
 
-You have successfully set up Jenkins and Docker on your EC2 instance, and configured it to be ready for creating a CI/CD pipeline for your Node.js Todo app.
+We have successfully set up Jenkins and Docker on our EC2 instance, and configured it to be ready for creating a CI/CD pipeline for your Node.js Todo app.
 
 
