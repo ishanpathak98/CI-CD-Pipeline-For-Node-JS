@@ -1,56 +1,108 @@
-STEPS TO CREATE AND IMPLEMENT THE COMPLETE CI/CD PIPELINE 
-For demonstration purpose we are deploying A simple todo app built with Nodejs
-Requirements
+# CI/CD Pipeline Setup for Node.js Todo App
 
-    Python 3.9
-    Node.js
-    React
-First we need to clone the repository, for that purpose we need to get an EC2 instance from AWS 
-Go to AWS Console>Instances(running)>Launch instances>
-**Note: ** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. To solve that we need to open port 8080 after creating the EC2 instance launch the instance 
-EC2 > Instances > Click on in the bottom tabs -> Click on Security>Security groups
-Add inbound traffic rules 
-Jenkins Installation:- 
-To install and run jenkins first we need to install the jave
-To install jave use below command 
-sudo apt update
+This guide provides step-by-step instructions to set up a CI/CD pipeline for a simple Todo app built with Node.js, using Jenkins and Docker.
+
+## Requirements
+
+- Python 3.9
+- Node.js
+- React
+
+## Setup Instructions
+
+### 1. Launch an EC2 Instance
+
+1. Go to AWS Console.
+2. Navigate to `Instances (running) > Launch instances`.
+3. Launch the instance with your preferred configurations.
+4. Open port 8080 to allow access to Jenkins:
+   - Go to `EC2 > Instances`.
+   - Click on the instance.
+   - In the bottom tabs, click on `Security > Security groups`.
+   - Add inbound traffic rules to allow port 8080.
+
+### 2. Jenkins Installation
+
+#### Install Java
+
+1. Update the package list:
+   ```sh
+   sudo apt update
+
+Install Java:
 sudo apt install openjdk-11-jre
-Verify if the java is installed properly or not , use below command to verify and get the version details of java 
+Verify Java installation:
 java -version
-To install Jenkins use below command in the EC2 Terminal
-curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
-  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
+Install Jenkins
+
+    Add the Jenkins key:
+    curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+Add the Jenkins repository:
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+Update the package list:
 sudo apt-get update
+Install Jenkins:
 sudo apt-get install jenkins
-LAUNCH JENKINS:- 
+3. Launch Jenkins
+
+    Open Jenkins in your browser:
+
+    vbnet
+
 http://<ec2-instance-public-ip>:8080
-Once Jenkins is launched it will ask to unlock jenkins . The location of the password will be at /var/lib/jenkins/secrets/initialAdminPassword
-To view the password we can use below command in our EC2 
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-Use the password to unlock jenkins 
-Click on Install suggested plugins and wait for the Jenkins to Install suggested plugins
-Create Admin Credentials or Skip the step .If you want to use current Jenkins instance in future as well, then it will be better to create admin user]
-Jenkins Installation is Successful.
-Now we need to Install the Docker Pipeline plugin in Jenkins:
-(i)Log in to Jenkins.
-(ii)Go to Manage Jenkins > Manage Plugins.
-(iii)In the Available tab, search for "Docker Pipeline".
-(iv)Select the plugin and click the Install button.
-(v)Restart Jenkins after the plugin is installed.
-(vi)Wait for the Jenkins to be restarted.
-DOCKER INSTALLATION:- 
-Run the below command to Install Docker
+
+Unlock Jenkins:
+
+    Locate the initial admin password at /var/lib/jenkins/secrets/initialAdminPassword.
+    View the password:
+
+    sh
+
+        sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+    Use the password to unlock Jenkins.
+    Install suggested plugins.
+    Create Admin Credentials or skip this step. (Recommended if you plan to use the instance in the future)
+
+4. Install Docker Pipeline Plugin in Jenkins
+
+    Log in to Jenkins.
+    Go to Manage Jenkins > Manage Plugins.
+    In the Available tab, search for "Docker Pipeline".
+    Select the plugin and click the Install button.
+    Restart Jenkins after the plugin is installed.
+
+5. Docker Installation
+
+Update the package list:
+
+    sh
+
 sudo apt update
+
+Install Docker:
+
+sh
+
 sudo apt install docker.io
-Grant Jenkins user and Ubuntu user permission to docker deamon using below command 
-sudo su - 
+
+Grant Jenkins and Ubuntu users permission to the Docker daemon:
+
+sh
+
+sudo su -
 usermod -aG docker jenkins
 usermod -aG docker ubuntu
 systemctl restart docker
-Restart Jenkins using below command 
-http://<ec2-instance-public-ip>:8080/restart
-The docker agent configuration is now successful.
+
+Restart Jenkins:
+
+vbnet
+
+    http://<ec2-instance-public-ip>:8080/restart
+
+Conclusion
+
+You have successfully set up Jenkins and Docker on your EC2 instance, and configured it to be ready for creating a CI/CD pipeline for your Node.js Todo app.
+
 
