@@ -30,6 +30,7 @@ Jenkins requires Java to run. Install OpenJDK 11:
 ```
 sudo apt update
 sudo apt install openjdk-11-jdk -y
+```
 
 
 #### Verify the installation:
