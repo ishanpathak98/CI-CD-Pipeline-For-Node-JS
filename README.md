@@ -25,44 +25,57 @@ This guide provides step-by-step instructions to set up a CI/CD pipeline for a s
 
 #### Install Java
 
-1. Update the package list:
-   ```sh
-   sudo apt update
+Jenkins requires Java to run. Install OpenJDK 11:
 
-Install Java:
-sudo apt install openjdk-11-jre
-Verify Java installation:
+```
+sudo apt update
+sudo apt install openjdk-11-jdk -y
+Verify the installation:
+
+
+
 java -version
+
 Install Jenkins
 
-    Add the Jenkins key:
-    curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-Add the Jenkins repository:
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
-Update the package list:
-sudo apt-get update
-Install Jenkins:
-sudo apt-get install jenkins
-3. Launch Jenkins
-
-    Open Jenkins in your browser:
-
-   
-
-http://<ec2-instance-public-ip>:8080
-
-Unlock Jenkins:
-
-    Locate the initial admin password at /var/lib/jenkins/secrets/initialAdminPassword.
-    View the password:
+    Add the Jenkins Repository:
 
     
 
-        sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 
-    Use the password to unlock Jenkins.
-    Install suggested plugins.
-    Create Admin Credentials or skip this step. (Recommended if you plan to use the instance in the future)
+Update the package list:
+
+
+
+sudo apt update
+
+Install Jenkins:
+
+
+
+    sudo apt install jenkins -y
+
+3. Start and Enable Jenkins
+
+    Start Jenkins:
+
+    
+
+sudo systemctl start jenkins
+
+Enable Jenkins to start on boot:
+
+
+
+sudo systemctl enable jenkins
+
+Check the status of Jenkins:
+
+
+
+    sudo systemctl status jenkins
 
 4. Install Docker Pipeline Plugin in Jenkins
 
@@ -74,9 +87,9 @@ Unlock Jenkins:
 
 5. Docker Installation
 
-Update the package list:
+    Update the package list:
 
-   
+    
 
 sudo apt update
 
@@ -90,19 +103,16 @@ Grant Jenkins and Ubuntu users permission to the Docker daemon:
 
 
 
-sudo su -
-usermod -aG docker jenkins
-usermod -aG docker ubuntu
-systemctl restart docker
+    sudo su -
+    usermod -aG docker jenkins
+    usermod -aG docker ubuntu
+    systemctl restart docker
 
-Restart Jenkins:
+    Restart Jenkins:
 
-
-
-    http://<ec2-instance-public-ip>:8080/restart
+    Navigate to http://<ec2-instance-public-ip>:8080/restart to restart Jenkins from the web interface.
 
 Conclusion
 
 We have successfully set up Jenkins and Docker on our EC2 instance, and configured it to be ready for creating a CI/CD pipeline for your Node.js Todo app.
-
 
