@@ -30,13 +30,12 @@ Jenkins requires Java to run. Install OpenJDK 11:
 ```
 sudo apt update
 sudo apt install openjdk-11-jdk -y
-Verify the installation:
 
-
+#### Verify the installation:
 
 java -version
 
-Install Jenkins
+#### Install Jenkins
 
     Add the Jenkins Repository:
 
@@ -45,13 +44,11 @@ Install Jenkins
 curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 
-Update the package list:
-
-
+#### Update the package list:
 
 sudo apt update
 
-Install Jenkins:
+#### Install Jenkins:
 
 
 
