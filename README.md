@@ -56,29 +56,36 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins
 ```
 Update the package list:
 
-bash
+```bash
 
 sudo apt update
 
+```
+
 Install Jenkins:
 
-bash
+```bash
 
 sudo apt install jenkins -y
 
+```
 3. Start and Enable Jenkins
 
 Start Jenkins:
 
-bash
+```bash
 
 sudo systemctl start jenkins
 
+```
+
 Enable Jenkins to start on boot:
 
-bash
+```bash
 
 sudo systemctl enable jenkins
+
+```
 
 Check the status of Jenkins:
 
@@ -89,9 +96,8 @@ sudo systemctl status jenkins
 ```
 4. Install Docker Pipeline Plugin in Jenkins
 
-   ```
- Log in to Jenkins.
- Go to Manage Jenkins > Manage Plugins.
+``` Log in to Jenkins.
+Go to Manage Jenkins > Manage Plugins.
  In the Available tab, search for "Docker Pipeline".
  Select the plugin and click the Install button.
  Restart Jenkins after the plugin is installed.
@@ -104,8 +110,9 @@ Update the package list:
 
 ```bash
 
-```
 sudo apt update
+
+```
 
 Install Docker:
 
