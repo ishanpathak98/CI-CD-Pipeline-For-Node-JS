@@ -96,13 +96,13 @@ sudo systemctl status jenkins
 ```
 4. Install Docker Pipeline Plugin in Jenkins
 
-``` Log in to Jenkins.
+
+Log in to Jenkins.
 Go to Manage Jenkins > Manage Plugins.
  In the Available tab, search for "Docker Pipeline".
  Select the plugin and click the Install button.
  Restart Jenkins after the plugin is installed.
 
-```
 
 5. Docker Installation
 
@@ -178,7 +178,7 @@ EXPOSE 8000
 CMD ["npm", "start"]
 EOF
 
-```
+
 # Build Docker image
 
 ```
@@ -195,27 +195,26 @@ docker run -d -p 8000:8000 nodejs-todo-app
 
 To automate the running of the app through Jenkins:
 
-```
+
     Go to Post-build Actions.
     Select Build other projects and enter the name of the job to trigger after the build is complete.
 
-```
+
 8. Set Up Webhooks and Build Triggers
 
-```
+
     Go to your repository settings (e.g., GitHub).
     Navigate to Webhooks and add a new webhook.
     Enter the Payload URL as http://<ec2-instance-public-ip>:8080/github-webhook/.
     Set the content type to application/json.
     Select Just the push event and click Add webhook.
 
-```
 In Jenkins:
 
-```
+
     Go to your project configuration.
     Under Build Triggers, check GitHub hook trigger for GITScm polling.
-```
+
 Conclusion
 
 We have successfully set up Jenkins and Docker on our EC2 instance and configured it to be ready for creating a CI/CD pipeline for your Node.js Todo app.
